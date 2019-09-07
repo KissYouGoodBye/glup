@@ -7,7 +7,7 @@ nodejs/npm
 方法/步骤
 
 首先要确保pc上装有node，然后在global环境和项目文件中都install gulp
-```
+```bash
 npm install gulp -g   (global环境)
 npm install gulp --save-dev (项目环境)
 ```
@@ -19,7 +19,7 @@ npm install gulp-minify-css gulp-concat gulp-uglify gulp-rename del --save-dev
 
 在项目的根目录新建gulpfile.js，require需要的module
 
-```
+```js
 var gulp = require('gulp'),
     minifycss = require('gulp-minify-css'),
     concat = require('gulp-concat'),
@@ -38,7 +38,7 @@ gulp.task('minifycss', function() {
 ```
 
 压缩js
-```
+```js
 gulp.task('minifyjs', function() {
     //gulp.src([])可以用数组的形式加载不同格式，不同位置的文件
     return gulp.src('src/*.js')
@@ -51,7 +51,7 @@ gulp.task('minifyjs', function() {
 ```
 
 执行压缩前，先删除文件夹里的内容
-```
+```js
 gulp.task('clean', function(cb) {
     del(['minified/css', 'minified/js'], cb)
 });
