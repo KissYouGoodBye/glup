@@ -29,7 +29,7 @@ var gulp = require('gulp'),
 ```
 
 压缩css
-```
+```js
 gulp.task('minifycss', function() {
     return gulp.src('src/*.css')      //压缩的文件
         .pipe(gulp.dest('minified/css'))   //输出文件夹
