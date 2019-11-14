@@ -2,26 +2,27 @@
 
 ## 配置
 
-类似于grunt，都是基于Node.js的前端构建工具。不过gulp压缩效率更高
+类似于`grunt`，都是基于`Node.js`的前端构建工具。不过gulp压缩效率更高。
 
-工具/原料
+工具和原料
 
-[nodejs](http://nodejs.cn/) / [npm](https://www.npmjs.com/)
+- [nodejs](http://nodejs.cn/)
+- [npm](https://www.npmjs.com/)
 
-方法/步骤
+方法和步骤
 
-首先要确保pc上装有node，然后在global环境和项目文件中都install gulp
+首先要确保系统上装有`node`，然后在全局环境和项目文件中安装`gulp`
 ```bash
-npm install gulp -g   (global环境)
-npm install gulp --save-dev (项目环境)
+npm install gulp -g # global环境
+npm install gulp --save-dev # 项目环境
 ```
-在项目中install需要的gulp插件，一般只压缩的话需要
-```
+在项目中安装需要的`gulp`插件，一般只压缩的话需要
+```bash
 npm install gulp-minify-css gulp-concat gulp-uglify gulp-rename del --save-dev
 ```
-更多插件可以在这个链接中找到 http://gratimax.net/search-gulp-plugins/
+更多插件可以在这个链接中找到 http://gratimax.net/search-gulp-plugins
 
-在项目的根目录新建gulpfile.js，require需要的module
+在项目的根目录新建`gulpfile.js`，引入需要的模块
 
 ```js
 var gulp = require('gulp'),
@@ -31,8 +32,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     del = require('del');
 ```
-
-压缩css
+压缩`css`
 ```js
 gulp.task('minifycss', function() {
     return gulp.src('src/*.css')      //压缩的文件
@@ -40,8 +40,7 @@ gulp.task('minifycss', function() {
         .pipe(minifycss());   //执行压缩
 });
 ```
-
-压缩js
+压缩`js`
 ```js
 gulp.task('minifyjs', function() {
     //gulp.src([])可以用数组的形式加载不同格式，不同位置的文件
@@ -65,7 +64,7 @@ gulp.task('default', ['clean'], function() {
 });
 ```
 
-然后只要cmd中执行，gulp即可
+然后只要`cmd`中执行`gulp`即可
 
 ## 插件开发
 
@@ -104,9 +103,7 @@ var file = new Vinyl({
     contents: Buffer.from('Yao')
 }); // <File "file.js" <Buffer 59 61 6f>>
 var prefix = Buffer.from('Eno'); // <Buffer 45 6e 6f>
-
 // bufferData经过through处理为gulp能识别的流形式，再用pipe处理
 var bufferData = Buffer.concat([prefix, file.contents]); // <Buffer 45 6e 6f 59 61 6f>
-
 ```
-我们可以使用`file.contents`转化为`Buffer`类型，结合`Buffer.from(string)`和`Buffer.concat()`制作一个新的`Buffer`数据，然后通过`through`处理为`gulp`能识别的流，注意`through`和`stream`的流形式是不兼容的，虽然他们都有`pipe`方法
+我们可以使用`file.contents`转化为`Buffer`类型，结合`Buffer.from(string)`和`Buffer.concat()`制作一个新的`Buffer`数据，然后通过`through`处理为`gulp`能识别的流，注意`through`和`stream`的流形式是不兼容的，虽然他们都有`pipe`方法。
