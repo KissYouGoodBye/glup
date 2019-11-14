@@ -2,7 +2,7 @@
 
 ## 配置
 
-类似于`grunt`，都是基于`Node.js`的前端构建工具。不过gulp压缩效率更高。
+类似于`grunt`，都是基于`Node.js`的前端构建工具。不过gulp压缩效率更高
 
 工具和原料
 
@@ -68,7 +68,7 @@ gulp.task('default', ['clean'], function() {
 
 ## 插件开发
 
-借助`through2`模块处理流，封装一个函数去处理：
+借助`through2`模块处理流，封装一个函数去处理
 ```js
 var { dest, src } = require('gulp');
 var through = require('through2');
@@ -106,4 +106,4 @@ var prefix = Buffer.from('Eno'); // <Buffer 45 6e 6f>
 // bufferData经过through处理为gulp能识别的流形式，再用pipe处理
 var bufferData = Buffer.concat([prefix, file.contents]); // <Buffer 45 6e 6f 59 61 6f>
 ```
-我们可以使用`file.contents`转化为`Buffer`类型，结合`Buffer.from(string)`和`Buffer.concat()`制作一个新的`Buffer`数据，然后通过`through`处理为`gulp`能识别的流，注意`through`和`stream`的流形式是不兼容的，虽然他们都有`pipe`方法。
+我们可以使用`file.contents`转化为`Buffer`类型，结合`Buffer.from(string)`和`Buffer.concat()`制作一个新的`Buffer`数据，然后通过`through`处理为`gulp`能识别的流，注意`through`和`stream`的流形式是不兼容的，虽然他们都有`pipe`方法
