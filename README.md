@@ -2,7 +2,7 @@
 
 ## 配置
 
-类似于grunt，都是基于Node.js的前端构建工具。不过gulp压缩效率更高。
+类似于grunt，都是基于Node.js的前端构建工具。不过gulp压缩效率更高
 
 工具/原料
 
@@ -94,3 +94,19 @@ src('./input.txt').pipe(((prefix) => {
     return stream;
 })('')).pipe(dest('./output'));
 ```
+开发时候注意要理解流的概念，`through`处理后的`file`对象是一个`vinyl`类型，`vinyl`可以理解为是`buffer`加了路径的类型，如下面这个例子
+```js
+var Vinyl = require('vinyl');
+var file = new Vinyl({
+    cwd: '/',
+    base: '/test/',
+    path: '/test/file.js',
+    contents: Buffer.from('Yao')
+}); // <File "file.js" <Buffer 59 61 6f>>
+var prefix = Buffer.from('Eno'); // <Buffer 45 6e 6f>
+
+// bufferData经过through处理为gulp能识别的流形式，再用pipe处理
+var bufferData = Buffer.concat([prefix, file.contents]); // <Buffer 45 6e 6f 59 61 6f>
+
+```
+我们可以使用`file.contents`转化为`Buffer`类型，结合`Buffer.from(string)`和`Buffer.concat()`制作一个新的`Buffer`数据，然后通过`through`处理为`gulp`能识别的流，注意`through`和`stream`的流形式是不兼容的，虽然他们都有`pipe`方法
