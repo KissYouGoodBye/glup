@@ -35,21 +35,21 @@ var gulp = require('gulp'),
 压缩`css`
 ```js
 gulp.task('minifycss', function() {
-    return gulp.src('src/*.css')      //压缩的文件
-        .pipe(gulp.dest('minified/css'))   //输出文件夹
-        .pipe(minifycss());   //执行压缩
+    return gulp.src('src/*.css') //压缩的文件
+        .pipe(gulp.dest('minified/css')) //输出文件夹
+        .pipe(minifycss()); //执行压缩
 });
 ```
 压缩`js`
 ```js
 gulp.task('minifyjs', function() {
-    //gulp.src([])可以用数组的形式加载不同格式，不同位置的文件
+    // gulp.src([])可以用数组的形式加载不同格式，不同位置的文件
     return gulp.src('src/*.js')
-        .pipe(concat('main.js'))    //合并所有js到main.js
-        .pipe(gulp.dest('minified/js'))    //输出main.js到文件夹
-        .pipe(rename({suffix: '.min'}))   //rename压缩后的文件名
-        .pipe(uglify())    //压缩
-        .pipe(gulp.dest('minified/js'));  //输出
+        .pipe(concat('main.js')) //合并所有js到main.js
+        .pipe(gulp.dest('minified/js'))  //输出main.js到文件夹
+        .pipe(rename({suffix: '.min'}))  //rename压缩后的文件名
+        .pipe(uglify()) //压缩
+        .pipe(gulp.dest('minified/js')); //输出
 });
 ```
 
@@ -58,7 +58,9 @@ gulp.task('minifyjs', function() {
 gulp.task('clean', function(cb) {
     del(['minified/css', 'minified/js'], cb)
 });
-默认命令，在cmd中输入gulp后，执行的就是这个命令
+```
+默认命令，在`cmd`中输入`gulp`后，执行的就是这个命令
+```js
 gulp.task('default', ['clean'], function() {
     gulp.start('minifycss', 'minifyjs');
 });
