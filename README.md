@@ -1,5 +1,7 @@
 # Gulp
 
+## 配置
+
 类似于grunt，都是基于Node.js的前端构建工具。不过gulp压缩效率更高。
 
 工具/原料
@@ -64,3 +66,31 @@ gulp.task('default', ['clean'], function() {
 ```
 
 然后只要cmd中执行，gulp即可
+
+## 插件开发
+
+借助`through2`模块处理流，封装一个函数去处理：
+```js
+var { dest, src } = require('gulp');
+var through = require('through2');
+src('./input.txt').pipe(((prefix) => {
+    console.log(prefix)
+    if (!prefix) {
+        prefix = "";
+    }
+    var prefix = Buffer.from(prefix);
+    var stream = through.obj(function (file, encoding, callback) {
+        // 如果file类型不是buffer 退出不做处理
+        if (!file.isBuffer()) {
+            return callback();
+        }
+        // 将字符串加到文件数据开头
+        file.contents = Buffer.concat([prefix, file.contents]);
+        // 确保文件会传给下一个插件
+        this.push(file);
+        // 告诉stream引擎，已经处理完成
+        callback();
+    });
+    return stream;
+})('')).pipe(dest('./output'));
+```
