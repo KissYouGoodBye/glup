@@ -32,7 +32,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     del = require('del');
 ```
-压缩`css`
+压缩`css`文件
 ```js
 gulp.task('minifycss', function() {
     return gulp.src('src/*.css') //压缩的文件
@@ -40,7 +40,7 @@ gulp.task('minifycss', function() {
         .pipe(minifycss()); //执行压缩
 });
 ```
-压缩`js`
+压缩`js`文件
 ```js
 gulp.task('minifyjs', function() {
     // gulp.src([])可以用数组的形式加载不同格式，不同位置的文件
@@ -52,7 +52,6 @@ gulp.task('minifyjs', function() {
         .pipe(gulp.dest('minified/js')); //输出
 });
 ```
-
 执行压缩前，先删除文件夹里的内容
 ```js
 gulp.task('clean', function(cb) {
